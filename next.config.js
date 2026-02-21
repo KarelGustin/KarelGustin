@@ -3,7 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['via.placeholder.com'],
-    unoptimized: true,
+    unoptimized: false,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
   },
 }
 
