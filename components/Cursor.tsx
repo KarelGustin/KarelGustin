@@ -17,6 +17,8 @@ export default function Cursor() {
     if (isTouchDevice) {
       cursor.style.display = 'none';
       cursorFollower.style.display = 'none';
+      cursor.style.visibility = 'hidden';
+      cursorFollower.style.visibility = 'hidden';
       document.body.style.cursor = 'default';
       return;
     }
@@ -50,7 +52,7 @@ export default function Cursor() {
       requestAnimationFrame(animateFollower);
     };
 
-    // Ensure cursor is visible
+    // Ensure cursor is visible (only on non-touch devices)
     cursor.style.display = 'block';
     cursor.style.opacity = '1';
     cursor.style.visibility = 'visible';
@@ -70,21 +72,11 @@ export default function Cursor() {
     <>
       <div 
         ref={cursorRef}
-        className="cursor" 
-        style={{ 
-          display: 'block', 
-          opacity: 1,
-          visibility: 'visible'
-        }}
+        className="cursor"
       ></div>
       <div 
         ref={followerRef}
-        className="cursor-follower" 
-        style={{ 
-          display: 'block', 
-          opacity: 0.5,
-          visibility: 'visible'
-        }}
+        className="cursor-follower"
       ></div>
     </>
   );

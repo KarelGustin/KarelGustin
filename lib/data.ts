@@ -20,7 +20,7 @@ export const projects: Project[] = [
     idea: "Identified opportunity to create a premium beauty brand experience online. Strategy focused on conversion optimization through user psychology, clear value proposition, and seamless shopping flow. Marketing approach: content-first strategy, SEO optimization, and social proof integration.",
     execution: "Full-stack development: Custom Shopify theme built from scratch using Liquid, JavaScript, and CSS. Implemented advanced product filtering, cart abandonment recovery, and A/B testing infrastructure. Designed intuitive UI with mobile-first approach, ensuring fast load times and accessibility. Backend: Custom API integrations for inventory management and analytics tracking.",
     result: "Launched in 6 weeks. Achieved 35% increase in conversion rate, 50% reduction in cart abandonment, and 4.2s average page load time. Generated €50K+ in first quarter revenue. Improved SEO ranking from page 3 to page 1 for target keywords.",
-    image: "/images/browshape.png",
+    image: "/images/Browshape.png",
     technologies: ["Shopify", "Liquid", "JavaScript", "HTML5", "CSS3", "Marketing Analytics", "SEO", "A/B Testing"],
     link: "https://browshapeofficial.com/"
   },
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     idea: "Buying tiles for a driveway requires precise area calculation and visualization. Normal Shopify quantity only supports integers, but customers want to order exact square meters, which often include decimals. Strategy: Build a seamless shopping experience where users input the m² they need, get accurate totals, and visualize their style through AI-assisted previews.",
     execution: "Developed a custom React add-to-cart component in Shopify: Users enter the required m² (including decimals), which is converted in real-time to integer-based 'layers of tiles' matching Shopify’s quantity model. The cart reflects precise needs while staying compatible with Shopify’s inventory. Integrated a visualizer allowing users to upload a photo of their driveway, see the selected tiles edited into their driveway, and receive automatic style suggestions with AI. Ensured the calculator handles rounding, overage warnings, and clear price breakdowns. Optimized for performance and mobile. Provided extensive guidance and tips throughout the process.",
     result: "Enabled customers to confidently order the right amount of tiles, reducing confusion and return rates by 30%. Enhanced customer engagement and satisfaction through realistic previews, leading to a 25% higher conversion rate. Visualizer and AI suggestions became key marketing features showcased in campaigns. The solution is now a template for similar multi-layer product categories.",
-    image: "/images/mijnbuitenplan.png",
+    image: "/images/Mijnbuitenplan.png",
     technologies: ["Shopify", "React", "JavaScript", "Liquid", "AI Vision", "Image Editing", "Custom Add-to-Cart"],
     link: "https://mijnbuitenplan.nl/"
   },

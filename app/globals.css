@@ -18,7 +18,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
+    
+    body {
+        cursor: none;
+    }
 }
 
 html {
@@ -32,7 +41,6 @@ body {
     background-color: var(--white);
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
 }
 
 /* ============================================
@@ -53,8 +61,8 @@ body {
     transition: width 0.2s, height 0.2s;
     will-change: transform;
     opacity: 1;
-    display: block !important;
-    visibility: visible !important;
+    display: none;
+    visibility: hidden;
 }
 
 .cursor-follower {
@@ -71,8 +79,21 @@ body {
     transition: width 0.3s, height 0.3s, border-color 0.3s;
     will-change: transform;
     opacity: 0.5;
-    display: block !important;
-    visibility: visible !important;
+    display: none;
+    visibility: hidden;
+}
+
+/* Only show cursor on devices with mouse/trackpad */
+@media (hover: hover) and (pointer: fine) {
+    .cursor {
+        display: block;
+        visibility: visible;
+    }
+    
+    .cursor-follower {
+        display: block;
+        visibility: visible;
+    }
 }
 
 body:hover .cursor {

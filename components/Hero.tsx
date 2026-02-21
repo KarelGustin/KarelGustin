@@ -130,7 +130,7 @@ export default function Hero() {
           <div className="portrait-container" ref={portraitRef}>
             <div className="portrait-wrapper">
               <img
-                src="/images/IMG_2816.jpg"
+                src="/images/IMG_2816.JPG"
                 alt="Karel Gustin"
                 className="portrait"
                 ref={portraitImgRef}
