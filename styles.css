@@ -20,16 +20,6 @@
     box-sizing: border-box;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    * {
-        cursor: none !important;
-    }
-    
-    body {
-        cursor: none;
-    }
-}
-
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
@@ -41,6 +31,7 @@ body {
     background-color: var(--white);
     line-height: 1.6;
     overflow-x: hidden;
+    cursor: none;
 }
 
 /* ============================================
@@ -48,21 +39,18 @@ body {
    ============================================ */
 
 .cursor {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: var(--black);
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 9999;
     transform: translate(-50%, -50%);
     transition: width 0.2s, height 0.2s;
-    will-change: transform;
-    opacity: 1;
-    display: none;
-    visibility: hidden;
+    mix-blend-mode: difference;
 }
 
 .cursor-follower {
@@ -71,29 +59,13 @@ body {
     border: 2px solid var(--black);
     border-radius: 50%;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 99998;
+    z-index: 9998;
     transform: translate(-50%, -50%);
     transition: width 0.3s, height 0.3s, border-color 0.3s;
-    will-change: transform;
-    opacity: 0.5;
-    display: none;
-    visibility: hidden;
-}
-
-/* Only show cursor on devices with mouse/trackpad */
-@media (hover: hover) and (pointer: fine) {
-    .cursor {
-        display: block;
-        visibility: visible;
-    }
-    
-    .cursor-follower {
-        display: block;
-        visibility: visible;
-    }
+    mix-blend-mode: difference;
 }
 
 body:hover .cursor {
@@ -138,29 +110,12 @@ button:hover ~ .cursor-follower {
 }
 
 .loader-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-.loader-name {
     font-size: 2rem;
     font-weight: 900;
     letter-spacing: 0.2em;
-}
-
-.loader-subtitle {
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: 0.1em;
-    color: var(--gray-dark);
+    margin-bottom: 2rem;
     opacity: 0;
-    animation: fadeInUp 0.6s ease forwards 0.3s;
+    animation: fadeInUp 0.6s ease forwards;
 }
 
 .loader-bar {
@@ -243,7 +198,7 @@ button:hover ~ .cursor-follower {
     padding: 0.5rem 1rem;
     background-color: var(--gray-light);
     border-radius: 20px;
-    font-size: 0.875rem;
+    font-size: 0.6rem;
     white-space: nowrap;
 }
 
@@ -279,7 +234,7 @@ button:hover ~ .cursor-follower {
 .nav-link {
     color: var(--black);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.6rem;
     font-weight: 500;
     position: relative;
     transition: var(--transition);
@@ -307,7 +262,7 @@ button:hover ~ .cursor-follower {
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 25px;
-    font-size: 0.95rem;
+    font-size: 0.6rem;
     font-weight: 500;
     cursor: none;
     display: flex;
@@ -428,9 +383,8 @@ button:hover ~ .cursor-follower {
 }
 
 .title-outline {
-    -webkit-text-stroke: 2px var(--black);
+    -webkit-text-stroke: 3px var(--black);
     -webkit-text-fill-color: transparent;
-    color: transparent;
     display: block;
     margin-bottom: -0.1em;
 }
@@ -491,7 +445,7 @@ button:hover ~ .cursor-follower {
 .cta-button {
     padding: 1rem 2rem;
     border-radius: 30px;
-    font-size: 1rem;
+    font-size: 0.6rem;
     font-weight: 500;
     cursor: none;
     display: inline-flex;
@@ -615,7 +569,7 @@ button:hover ~ .cursor-follower {
 .scroll-mouse {
     width: 24px;
     height: 40px;
-    border: 2px solid var(--white);
+    border: 2px solid var(--black);
     border-radius: 12px;
     position: relative;
 }
@@ -623,7 +577,7 @@ button:hover ~ .cursor-follower {
 .scroll-wheel {
     width: 4px;
     height: 8px;
-    background-color: var(--white);
+    background-color: var(--black);
     border-radius: 2px;
     position: absolute;
     top: 8px;
@@ -647,7 +601,6 @@ button:hover ~ .cursor-follower {
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--white);
 }
 
 @media (max-width: 1024px) {
@@ -679,7 +632,7 @@ section {
 
 .section-header {
     margin-bottom: 4rem;
-    opacity: 1;
+    opacity: 0;
 }
 
 .section-number {
@@ -720,18 +673,18 @@ section {
 }
 
 .about-text {
-    opacity: 1;
+    opacity: 0;
 }
 
 .about-intro {
-    font-size: 1.3rem;
+    font-size: 0.6rem;
     line-height: 1.8;
     margin-bottom: 2rem;
     font-weight: 500;
 }
 
 .about-text p {
-    font-size: 1.1rem;
+    font-size: 0.6rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
     color: var(--gray-dark);
@@ -746,7 +699,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    opacity: 1;
+    opacity: 0;
 }
 
 .skill-category {
@@ -773,7 +726,7 @@ section {
     padding: 0.5rem 1rem;
     background-color: var(--gray-light);
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     font-weight: 500;
     transition: var(--transition);
 }
@@ -799,7 +752,7 @@ section {
     gap: 1rem;
     margin-bottom: 3rem;
     flex-wrap: wrap;
-    opacity: 1;
+    opacity: 0;
 }
 
 .filter-btn {
@@ -807,7 +760,7 @@ section {
     background-color: transparent;
     border: 2px solid var(--black);
     border-radius: 25px;
-    font-size: 0.95rem;
+    font-size: 0.6rem;
     font-weight: 500;
     cursor: none;
     transition: var(--transition);
@@ -824,7 +777,7 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2rem;
-    opacity: 1;
+    opacity: 0;
 }
 
 .project-card {
@@ -834,176 +787,45 @@ section {
     overflow: hidden;
     cursor: none;
     transition: var(--transition);
-    opacity: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    opacity: 0;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    border-color: var(--black);
-}
-
-.project-image-link {
-    display: block;
-    text-decoration: none;
-    position: relative;
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-    background-color: var(--gray-light);
-    cursor: none;
-}
-
-.project-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .project-image {
     width: 100%;
-    height: 100%;
+    height: 250px;
     object-fit: cover;
     transition: var(--transition-slow);
-    display: block;
-}
-
-.project-image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.7) 100%
-    );
-    opacity: 0;
-    transition: var(--transition);
-    pointer-events: none;
-}
-
-.project-card:hover .project-image-overlay {
-    opacity: 1;
 }
 
 .project-card:hover .project-image {
-    transform: scale(1.08);
-}
-
-.project-tech-preview {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    right: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: var(--transition);
-    pointer-events: none;
-}
-
-.project-card:hover .project-tech-preview {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.project-tech-tag {
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    background-color: rgba(255, 255, 255, 0.95);
-    color: var(--black);
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--black);
-    text-decoration: none;
-    font-weight: 700;
-    transition: var(--transition);
-    margin-top: auto;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--gray-medium);
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.project-link:hover {
-    gap: 1rem;
-    color: var(--black);
-    transform: translateX(5px);
-}
-
-.project-link svg {
-    transition: var(--transition);
-    width: 18px;
-    height: 18px;
-}
-
-.project-link:hover svg {
-    transform: translateX(3px);
+    transform: scale(1.1);
 }
 
 .project-info {
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background-color: var(--white);
-    transition: var(--transition);
-}
-
-.project-card:hover .project-info {
-    background-color: var(--gray-light);
 }
 
 .project-category {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
+    padding: 0.4rem 0.8rem;
+    background-color: var(--gray-light);
+    border-radius: 15px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    align-self: flex-start;
-    transition: var(--transition);
-}
-
-.project-card:hover .project-category {
-    transform: scale(1.05);
+    letter-spacing: 0.05em;
 }
 
 .project-title {
-    font-size: 1.75rem;
-    font-weight: 900;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-    transition: var(--transition);
-}
-
-.project-card:hover .project-title {
-    transform: translateX(5px);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
 }
 
 .project-description {
@@ -1012,6 +834,19 @@ section {
     margin-bottom: 1.5rem;
 }
 
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.project-link:hover {
+    gap: 1rem;
+}
 
 @media (max-width: 768px) {
     .projects-grid {
@@ -1046,7 +881,7 @@ section {
 .timeline-item {
     position: relative;
     margin-bottom: 4rem;
-    opacity: 1;
+    opacity: 0;
 }
 
 .timeline-item::before {
@@ -1062,7 +897,7 @@ section {
 }
 
 .timeline-date {
-    font-size: 0.875rem;
+    font-size: 0.6rem;
     font-weight: 600;
     color: var(--gray-dark);
     margin-bottom: 0.5rem;
@@ -1083,7 +918,7 @@ section {
 }
 
 .timeline-description {
-    font-size: 1rem;
+    font-size: 0.6rem;
     line-height: 1.8;
     color: var(--gray-dark);
     margin-bottom: 1rem;
@@ -1131,7 +966,7 @@ section {
 }
 
 .contact-form-wrapper {
-    opacity: 1;
+    opacity: 0;
 }
 
 .contact-form {
@@ -1220,7 +1055,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    opacity: 1;
+    opacity: 0;
 }
 
 .contact-item {
@@ -1374,6 +1209,12 @@ section {
     overflow-y: auto;
     z-index: 1;
     border: 2px solid var(--black);
+    transform: scale(0.9);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.modal.active .modal-content {
     transform: scale(1);
     opacity: 1;
 }
@@ -1401,7 +1242,7 @@ section {
 }
 
 .modal-body {
-    padding: 3rem;
+    padding: 2rem;
 }
 
 .modal-image {
@@ -1423,48 +1264,21 @@ section {
     padding: 0.5rem 1rem;
     background-color: var(--gray-light);
     border-radius: 20px;
-    font-size: 0.6rem;
+    font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
 }
 
 .modal-description {
-    font-size: 1.1rem;
+    font-size: 0.6rem;
     line-height: 1.8;
     color: var(--gray-dark);
     margin-bottom: 2rem;
-}
-
-.modal-section {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--gray-medium);
-}
-
-.modal-section:last-of-type {
-    border-bottom: none;
-}
-
-.modal-section-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--black);
-}
-
-.modal-section-content {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--gray-dark);
 }
 
 .modal-tech {
     margin-bottom: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--gray-medium);
 }
 
 .modal-tech-title {
@@ -1492,7 +1306,6 @@ section {
     border-radius: 30px;
     font-weight: 600;
     transition: var(--transition);
-    font-size: 0.875rem;
 }
 
 .modal-link:hover {
