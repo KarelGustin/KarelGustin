@@ -693,7 +693,8 @@ body.dark-mode .scroll-progress-bar {
     font-size: clamp(3rem, 7vw, 6.5rem);
     font-weight: 900;
     line-height: 0.9;
-    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+    margin-top: clamp(1rem, 3vh, 2rem);
+    margin-bottom: clamp(0.5rem, 1vh, 1rem);
     text-align: center;
     position: relative;
     z-index: 1;
