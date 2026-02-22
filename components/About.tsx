@@ -74,68 +74,66 @@ export default function About() {
       <div className="container">
         <div className="section-header" ref={headerRef}>
           <span className="section-number">01</span>
-          <h2 className="section-title">About</h2>
+          <h2 className="section-title">Think systems. Ship products.</h2>
         </div>
 
         <div className="about-content">
           <div className="about-text" ref={textRef}>
             <p className="about-intro">
-              I&apos;m an <strong>Agentic Engineer</strong>—I own projects from concept to production. 
-              I don&apos;t think in syntax; I think in <strong>systems and architecture</strong>. 
-              I work fast, make decisions quickly, and deliver complete solutions autonomously.
+              Most engineers write code. I <strong>engineer outcomes</strong>. I see the full picture — 
+              from database schema to conversion funnel — and I build the entire thing.
             </p>
             <p>
-              What sets me apart: I operate at the <strong>system level</strong>, not the code level. 
-              I architect solutions, design experiences, and execute rapidly. Every project starts with 
-              understanding the problem and system requirements, then I design the architecture, plan the 
-              user experience, and execute the full stack—frontend, backend, infrastructure—all with speed and precision.
+              I don&apos;t wait for specs. I identify the problem, architect the solution, design the experience, 
+              and ship it. <strong>Frontend, backend, infrastructure, marketing</strong> — I own it all. 
+              That&apos;s what agentic engineering means: <strong>complete autonomy, complete accountability</strong>.
             </p>
             <p>
-              I bridge business strategy, technical architecture, and user experience. My approach: 
-              think strategically about systems, design thoughtfully for users, and execute fast. 
-              I don&apos;t get lost in implementation details; I focus on outcomes and deliver measurable business impact.
+              My edge? I think like a founder and execute like an engineer. I choose the right database for the use case, 
+              not the trend. I design for conversion, not just aesthetics. And I ship fast — because 
+              <strong>speed with intention beats perfection every time</strong>.
             </p>
           </div>
 
           <div className="skills-grid" ref={skillsRef}>
             <div className="skill-category">
-              <h3 className="skill-title">Agentic Engineering</h3>
+              <h3 className="skill-title">How I Work</h3>
               <div className="skill-items">
-                <span className="skill-tag">System Thinking</span>
-                <span className="skill-tag">Architecture First</span>
-                <span className="skill-tag">Fast Execution</span>
                 <span className="skill-tag">End-to-End Ownership</span>
-                <span className="skill-tag">Business Impact</span>
+                <span className="skill-tag">Rapid Prototyping</span>
+                <span className="skill-tag">Architecture-First</span>
+                <span className="skill-tag">Outcome-Driven</span>
+                <span className="skill-tag">Autonomous Execution</span>
               </div>
             </div>
             <div className="skill-category">
-              <h3 className="skill-title">Architecture</h3>
+              <h3 className="skill-title">System Design</h3>
               <div className="skill-items">
-                <span className="skill-tag">System Design</span>
-                <span className="skill-tag">Scalability</span>
+                <span className="skill-tag">Database Architecture</span>
                 <span className="skill-tag">API Design</span>
-                <span className="skill-tag">Microservices</span>
+                <span className="skill-tag">Tech Stack Selection</span>
+                <span className="skill-tag">Scalability Planning</span>
                 <span className="skill-tag">Cloud Infrastructure</span>
               </div>
             </div>
             <div className="skill-category">
-              <h3 className="skill-title">UI/UX</h3>
+              <h3 className="skill-title">Product & Design</h3>
               <div className="skill-items">
-                <span className="skill-tag">Design Systems</span>
-                <span className="skill-tag">User Research</span>
-                <span className="skill-tag">Prototyping</span>
-                <span className="skill-tag">Accessibility</span>
+                <span className="skill-tag">UI/UX Design</span>
+                <span className="skill-tag">Conversion Optimization</span>
+                <span className="skill-tag">Brand Strategy</span>
+                <span className="skill-tag">Mobile-First</span>
                 <span className="skill-tag">Performance</span>
               </div>
             </div>
             <div className="skill-category">
-              <h3 className="skill-title">Full Stack</h3>
+              <h3 className="skill-title">Execution</h3>
               <div className="skill-items">
-                <span className="skill-tag">Frontend</span>
-                <span className="skill-tag">Backend</span>
-                <span className="skill-tag">Databases</span>
-                <span className="skill-tag">DevOps</span>
-                <span className="skill-tag">Testing</span>
+                <span className="skill-tag">React / Next.js</span>
+                <span className="skill-tag">Node.js</span>
+                <span className="skill-tag">TypeScript</span>
+                <span className="skill-tag">Shopify / Liquid</span>
+                <span className="skill-tag">PostgreSQL</span>
               </div>
             </div>
           </div>

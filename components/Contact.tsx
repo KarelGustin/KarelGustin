@@ -109,10 +109,9 @@ export default function Contact() {
       <div className="container">
         <div className="section-header" ref={headerRef}>
           <span className="section-number">04</span>
-          <h2 className="section-title">Let&apos;s Connect</h2>
+          <h2 className="section-title">Let&apos;s build something.</h2>
           <p className="section-subtitle">
-            Need someone who can own a project from start to finish? 
-            I architect, design, build, and deliver—autonomously.
+            Looking for someone who ships? I take ownership from day one — no hand-holding required.
           </p>
         </div>
 

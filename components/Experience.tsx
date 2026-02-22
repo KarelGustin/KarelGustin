@@ -56,8 +56,8 @@ export default function Experience() {
       <div className="container">
         <div className="section-header" ref={headerRef}>
           <span className="section-number">03</span>
-          <h2 className="section-title">Experience</h2>
-          <p className="section-subtitle">Autonomous project ownership from idea to impact</p>
+          <h2 className="section-title">Built through doing.</h2>
+          <p className="section-subtitle">10 years of shipping products, solving real problems, and learning by building.</p>
         </div>
 
         <div className="timeline">

@@ -63,10 +63,8 @@ pnpm dev
 │   ├── Footer.tsx      # Footer
 │   ├── Cursor.tsx      # Custom cursor
 │   └── Loader.tsx      # Loading screen
-├── lib/
-│   └── data.ts         # Projects data
-└── hooks/
-    └── useMagnetic.ts  # Magnetic effect hook
+└── lib/
+    └── data.ts         # Projects data
 ```
 
 ## Customization
@@ -114,11 +112,7 @@ Update CSS variables in `app/globals.css`:
 
 ### Contact Form
 
-The contact form currently uses a simulated submission. To connect to a backend:
-
-1. Create an API route in `app/api/contact/route.ts`
-2. Update the form submission handler in `components/Contact.tsx`
-3. Replace the `setTimeout` simulation with a fetch call to your API
+The contact form currently uses a simulated submission. To connect to a backend service, update the form submission handler in `components/Contact.tsx` and replace the `setTimeout` simulation with your API call.
 
 ## Build for Production
 

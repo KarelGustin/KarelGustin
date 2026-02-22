@@ -10,6 +10,7 @@ if (typeof window !== 'undefined') {
 
 export default function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const karelRef = useRef<HTMLSpanElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -17,6 +18,11 @@ export default function Hero() {
   const portraitImgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const karelElement = karelRef.current;
+    if (!karelElement || !titleRef.current) return;
+
     // Hero animations
     gsap.to(titleRef.current, {
       opacity: 1,
@@ -24,6 +30,46 @@ export default function Hero() {
       duration: 1,
       ease: 'power3.out',
       delay: 0.2,
+    });
+
+    // KAREL scroll animation - moves from hero to header
+    // Animation stops when hero is out of view (handled by header component)
+    ScrollTrigger.create({
+      trigger: titleRef.current,
+      start: 'top top',
+      end: 'bottom top',
+      onUpdate: (self) => {
+        const scrollY = window.scrollY;
+        const heroSection = document.getElementById('hero');
+        if (!heroSection) return;
+        
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const isHeroOutOfView = scrollY > heroBottom - viewportHeight;
+        
+        // Only animate KAREL if hero is still in view
+        if (!isHeroOutOfView && karelElement) {
+          const heroHeight = window.innerHeight;
+          const maxScroll = heroHeight * 0.6;
+          
+          if (scrollY < maxScroll) {
+            const scale = Math.max(1 - (scrollY / maxScroll) * 0.6, 0.4);
+            const y = -(scrollY * 0.25);
+            gsap.set(karelElement, {
+              scale: scale,
+              y: y,
+              opacity: Math.max(1 - scrollY / maxScroll * 0.5, 0.5),
+            });
+          }
+        } else if (isHeroOutOfView && karelElement) {
+          // Reset KAREL when hero is out of view
+          gsap.set(karelElement, {
+            scale: 1,
+            y: 0,
+            opacity: 1,
+          });
+        }
+      },
     });
 
     gsap.to(leftRef.current, {
@@ -57,17 +103,16 @@ export default function Hero() {
       delay: 1.2,
     });
 
-    // Parallax effect for portrait
+    // Subtle parallax effect for portrait — slower scroll
     if (portraitImgRef.current) {
       gsap.to(portraitImgRef.current, {
         scrollTrigger: {
           trigger: '.hero',
           start: 'top top',
           end: 'bottom top',
-          scrub: true,
+          scrub: 0.5,
         },
-        y: 100,
-        scale: 0.95,
+        y: -40,
         ease: 'none',
       });
     }
@@ -89,25 +134,24 @@ export default function Hero() {
     <section className="hero" id="hero">
       <div className="container">
         <h1 className="main-title" ref={titleRef}>
-          <span className="title-outline" data-text="KAREL">KAREL</span>
+          <span className="title-outline" ref={karelRef} data-text="KAREL">KAREL</span>
           <span className="title-solid" data-text="GUSTIN">GUSTIN</span>
         </h1>
 
         <div className="hero-content">
           <div className="hero-left" ref={leftRef}>
             <div className="hero-badge">Agentic Engineer</div>
-            <h2 className="hero-subtitle">From Concept to Production</h2>
+            <h2 className="hero-subtitle">I engineer systems that ship.</h2>
             <p className="hero-description">
-              I architect, design, and build complete systems—autonomously taking projects from <strong>idea to execution to results</strong>. 
-              I don&apos;t think in syntax; I think in <strong>systems and architecture</strong>. 
-              Specialized in <strong>system design</strong> and <strong>user experience</strong>, I work fast and think end-to-end.
+              I don&apos;t write code — I <strong>architect solutions</strong>. From system design to pixel-perfect UI, 
+              I own every layer of the stack. <strong>Fast execution. Clean architecture. Real results.</strong>
             </p>
             <div className="hero-ctas">
               <button
                 className="cta-button primary-cta magnetic"
                 onClick={() => scrollToSection('work')}
               >
-                View Projects
+                See the Work
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M6 4L10 8L6 12"
@@ -130,12 +174,11 @@ export default function Hero() {
           <div className="portrait-container" ref={portraitRef}>
             <div className="portrait-wrapper">
               <img
-                src="/images/IMG_2816.JPG"
+                src="/images/Karelgustin.png"
                 alt="Karel Gustin"
                 className="portrait"
                 ref={portraitImgRef}
               />
-              <div className="portrait-overlay"></div>
             </div>
           </div>
 

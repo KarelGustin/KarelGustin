@@ -90,8 +90,8 @@ export default function Projects() {
         <div className="container">
           <div className="section-header" ref={headerRef}>
             <span className="section-number">02</span>
-            <h2 className="section-title">Selected Projects</h2>
-            <p className="section-subtitle">Experience demonstrated through real-world applications</p>
+            <h2 className="section-title">Work that speaks for itself.</h2>
+            <p className="section-subtitle">Real products. Real users. Real results.</p>
           </div>
 
           <div className="project-filters" ref={filtersRef}>

@@ -1,11 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showLogo, setShowLogo] = useState(false);
+  const [logoText, setLogoText] = useState<'KAREL' | 'GUSTIN'>('KAREL');
+  const karelLogoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,20 +16,59 @@ export default function Header() {
       const scrolled = (window.scrollY / windowHeight) * 100;
       setScrollProgress(scrolled);
 
-      // Update active section
-      const sections = document.querySelectorAll('section[id]');
-      sections.forEach((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop - 150;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        const sectionId = section.getAttribute('id');
+      // Show logo when hero is scrolled out of view
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        const scrollY = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        
+        // Show logo when hero is completely out of view
+        setShowLogo(scrollY > heroBottom - viewportHeight);
+      }
 
-        if (window.scrollY > sectionTop && window.scrollY <= sectionTop + sectionHeight) {
-          setActiveSection(sectionId || 'hero');
+      // Update active section and morph logo text
+      const sections = ['hero', 'about', 'work', 'experience', 'contact'];
+      let currentSectionIndex = -1;
+      let newActiveSection = 'hero';
+      
+      sections.forEach((sectionId, index) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const sectionTop = section.offsetTop - 200;
+          const sectionHeight = section.offsetHeight;
+          const scrollY = window.scrollY;
+
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            newActiveSection = sectionId;
+            currentSectionIndex = index;
+          }
         }
       });
+
+      setActiveSection(newActiveSection);
+
+      // Morph logo text based on section (alternating)
+      // hero = KAREL, about = GUSTIN, work = KAREL, experience = GUSTIN, contact = KAREL
+      if (currentSectionIndex >= 0) {
+        const shouldBeKarel = currentSectionIndex % 2 === 0;
+        setLogoText(shouldBeKarel ? 'KAREL' : 'GUSTIN');
+      }
+
+      // Toggle dark mode based on section (alternating)
+      // hero = light, about = dark, work = light, experience = dark, contact = light
+      const body = document.body;
+      const darkSections = ['about', 'experience'];
+      
+      if (darkSections.includes(newActiveSection)) {
+        body.classList.add('dark-mode');
+      } else {
+        body.classList.remove('dark-mode');
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -46,9 +88,23 @@ export default function Header() {
   return (
     <header className="header" id="header">
       <div className="container">
-        <div className="status-indicator">
-          <span className="status-dot"></span>
-          <span className="status-text">Available for New Project</span>
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span style={{ transform: mobileMenuOpen ? 'rotate(45deg) translateY(8px)' : 'none' }}></span>
+          <span style={{ opacity: mobileMenuOpen ? 0 : 1 }}></span>
+          <span style={{ transform: mobileMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'none' }}></span>
+        </button>
+
+        <div 
+          ref={karelLogoRef}
+          className={`header-logo ${showLogo ? 'visible' : ''}`}
+        >
+          <span className={`header-logo-text ${logoText === 'KAREL' ? 'karel' : 'gustin'}`} key={logoText}>
+            {logoText}
+          </span>
         </div>
 
         <nav className="nav">
@@ -94,34 +150,29 @@ export default function Header() {
           </a>
         </nav>
 
-        <button
-          className="cta-button header-cta magnetic"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('contact');
-          }}
-        >
-          Let&apos;s Talk
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M6 4L10 8L6 12"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-
-        <button
-          className="mobile-menu-toggle"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span style={{ transform: mobileMenuOpen ? 'rotate(45deg) translateY(8px)' : 'none' }}></span>
-          <span style={{ opacity: mobileMenuOpen ? 0 : 1 }}></span>
-          <span style={{ transform: mobileMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'none' }}></span>
-        </button>
+        <div className="header-right">
+          <a
+            href="#contact"
+            className="status-indicator status-link magnetic"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('contact');
+            }}
+          >
+            <span className="status-dot"></span>
+            <span className="status-text">Available for New Project</span>
+            <span className="status-text-mobile">Available</span>
+            <svg className="status-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M6 4L10 8L6 12"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
 
       <nav className={`mobile-nav ${mobileMenuOpen ? 'active' : ''}`}>

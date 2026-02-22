@@ -17,7 +17,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          <p className="footer-text">&copy; 2024 Karel Gustin. Built with focus on architecture and design.</p>
+          <p className="footer-text">&copy; 2026 Karel Gustin. Designed &amp; engineered by Karel.</p>
           <div className="footer-links">
             <a
               href="#work"
