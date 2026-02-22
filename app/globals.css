@@ -997,7 +997,7 @@ body.dark-mode .scroll-progress-bar {
     .portrait-container {
         order: 3;
         grid-column: 1;
-        margin-bottom: -30px;
+        margin-bottom: -80px;
         height: auto;
     }
     
