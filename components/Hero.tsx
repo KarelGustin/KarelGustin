@@ -1,12 +1,16 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
+
+const TYPING_WORDS = ['systems', 'websites', 'software'];
+const BASE_TEXT = "I engineer ";
+const SUFFIX_TEXT = " that ship.";
 
 export default function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -16,12 +20,52 @@ export default function Hero() {
   const rightRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const portraitImgRef = useRef<HTMLImageElement>(null);
+  const typingTextRef = useRef<HTMLSpanElement>(null);
+  
+  const [typingText, setTypingText] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
     const karelElement = karelRef.current;
     if (!karelElement || !titleRef.current) return;
+
+    // Typing animation
+    let currentWordIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    let typingTimeout: NodeJS.Timeout;
+
+    const typeText = () => {
+      const currentWord = TYPING_WORDS[currentWordIndex];
+      
+      if (isDeleting) {
+        setTypingText(currentWord.substring(0, currentCharIndex - 1));
+        currentCharIndex--;
+        
+        if (currentCharIndex === 0) {
+          isDeleting = false;
+          currentWordIndex = (currentWordIndex + 1) % TYPING_WORDS.length;
+          typingTimeout = setTimeout(typeText, 500);
+          return;
+        }
+      } else {
+        setTypingText(currentWord.substring(0, currentCharIndex + 1));
+        currentCharIndex++;
+        
+        if (currentCharIndex === currentWord.length) {
+          isDeleting = true;
+          typingTimeout = setTimeout(typeText, 2000); // Pause before deleting
+          return;
+        }
+      }
+      
+      const speed = isDeleting ? 50 : 100;
+      typingTimeout = setTimeout(typeText, speed);
+    };
+
+    // Start typing after initial delay
+    typingTimeout = setTimeout(typeText, 1000);
 
     // Hero animations
     gsap.to(titleRef.current, {
@@ -116,6 +160,12 @@ export default function Hero() {
         ease: 'none',
       });
     }
+
+    return () => {
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+    };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -141,7 +191,17 @@ export default function Hero() {
         <div className="hero-content">
           <div className="hero-left" ref={leftRef}>
             <div className="hero-badge">Agentic Engineer</div>
-            <h2 className="hero-subtitle">I engineer systems that ship.</h2>
+            <h2 className="hero-subtitle">
+              {BASE_TEXT}
+              <span 
+                ref={typingTextRef}
+                className="typing-text"
+              >
+                {typingText}
+                <span className="typing-cursor">|</span>
+              </span>
+              {SUFFIX_TEXT}
+            </h2>
             <p className="hero-description">
               I don&apos;t write code — I <strong>architect solutions</strong>. From system design to pixel-perfect UI, 
               I own every layer of the stack. <strong>Fast execution. Clean architecture. Real results.</strong>

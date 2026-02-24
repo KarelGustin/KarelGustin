@@ -6,8 +6,9 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showLogo, setShowLogo] = useState(false);
-  const [logoText, setLogoText] = useState<'KAREL' | 'GUSTIN'>('KAREL');
+  const [showLogo, setShowLogo] = useState(true); // Start visible to show "MY NAME IS" at top
+  const [logoText, setLogoText] = useState<'MY NAME IS' | 'KAREL' | 'GUSTIN'>('MY NAME IS');
+  const [isAtTop, setIsAtTop] = useState(true); // Track if we're at the top
   const karelLogoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,18 +17,9 @@ export default function Header() {
       const scrolled = (window.scrollY / windowHeight) * 100;
       setScrollProgress(scrolled);
 
-      // Show logo when hero is scrolled out of view
-      const heroSection = document.getElementById('hero');
-      if (heroSection) {
-        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        
-        // Show logo when hero is completely out of view
-        setShowLogo(scrollY > heroBottom - viewportHeight);
-      }
-
-      // Update active section and morph logo text
+      const scrollY = window.scrollY;
+      
+      // Update active section
       const sections = ['hero', 'about', 'work', 'experience', 'contact'];
       let currentSectionIndex = -1;
       let newActiveSection = 'hero';
@@ -37,7 +29,6 @@ export default function Header() {
         if (section) {
           const sectionTop = section.offsetTop - 200;
           const sectionHeight = section.offsetHeight;
-          const scrollY = window.scrollY;
 
           if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
             newActiveSection = sectionId;
@@ -48,11 +39,30 @@ export default function Header() {
 
       setActiveSection(newActiveSection);
 
-      // Morph logo text based on section (alternating)
-      // hero = KAREL, about = GUSTIN, work = KAREL, experience = GUSTIN, contact = KAREL
-      if (currentSectionIndex >= 0) {
-        const shouldBeKarel = currentSectionIndex % 2 === 0;
-        setLogoText(shouldBeKarel ? 'KAREL' : 'GUSTIN');
+      // Show "My name is:" when at the very top, otherwise morph between KAREL and GUSTIN
+      if (scrollY < 50) {
+        // At the very top
+        setLogoText('MY NAME IS');
+        setShowLogo(true); // Show it at top
+        setIsAtTop(true);
+      } else {
+        setIsAtTop(false);
+        // Show logo when hero is scrolled out of view
+        const heroSection = document.getElementById('hero');
+        if (heroSection) {
+          const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+          const viewportHeight = window.innerHeight;
+          
+          // Show logo when hero is completely out of view
+          setShowLogo(scrollY > heroBottom - viewportHeight);
+        }
+
+        // Morph logo text based on section (alternating)
+        // hero = KAREL, about = GUSTIN, work = KAREL, experience = GUSTIN, contact = KAREL
+        if (currentSectionIndex >= 0) {
+          const shouldBeKarel = currentSectionIndex % 2 === 0;
+          setLogoText(shouldBeKarel ? 'KAREL' : 'GUSTIN');
+        }
       }
 
       // Toggle dark mode based on section (alternating)
@@ -102,7 +112,7 @@ export default function Header() {
           ref={karelLogoRef}
           className={`header-logo ${showLogo ? 'visible' : ''}`}
         >
-          <span className={`header-logo-text ${logoText === 'KAREL' ? 'karel' : 'gustin'}`} key={logoText}>
+          <span className={`header-logo-text ${logoText === 'KAREL' ? 'karel' : logoText === 'GUSTIN' ? 'gustin' : 'my-name-is'}`} key={logoText}>
             {logoText}
           </span>
         </div>
@@ -153,7 +163,7 @@ export default function Header() {
         <div className="header-right">
           <a
             href="#contact"
-            className="status-indicator status-link magnetic"
+            className={`status-indicator status-link magnetic ${isAtTop ? 'at-top' : ''}`}
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('contact');
